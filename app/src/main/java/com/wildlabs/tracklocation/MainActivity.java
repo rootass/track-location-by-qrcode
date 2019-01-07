@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
     public void generateQRCode(){
         System.out.println("Reached the generator");
         qrImage = (ImageView) findViewById(R.id.qrImage);
-        QRGContents qrgContents = new QRGContents();
         QRGEncoder qrgEncoder = new QRGEncoder(mLocation,null, QRGContents.Type.TEXT, 32);
         try {
             // Getting QR-Code as Bitmap

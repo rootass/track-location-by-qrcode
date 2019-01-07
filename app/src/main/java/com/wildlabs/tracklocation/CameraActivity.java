@@ -49,11 +49,6 @@ public class CameraActivity extends AppCompatActivity {
                 } else {
 
                 }
-//                try {
-//                    mCameraSource.start(holder);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
                 startCamera(holder);
             }
 
@@ -85,7 +80,6 @@ public class CameraActivity extends AppCompatActivity {
                             mTextView.setText(data.valueAt(0).displayValue);
                         }
                     });
-                    System.out.println("DIsplay Value ====" + data.valueAt(0).displayValue);
                 }
             }
         });
