@@ -1,8 +1,13 @@
 package com.wildlabs.tracklocation;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +16,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -21,14 +35,18 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.zxing.qrcode.encoder.QRCode;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity{
 
     SurfaceView mSurfaceView;
     TextView mTextView;
     CameraSource mCameraSource;
     BarcodeDetector mBarcodeDetector;
     SurfaceHolder mHolder;
+    private GoogleMap mMap;
+    private String latitude, longitude;
 //    private FirebaseDatabase mFirebaseDatabase;
 //    private DatabaseReference mDatabaseReference;
 //    private ChildEventListener mChildEventListener;
@@ -40,6 +58,7 @@ public class CameraActivity extends AppCompatActivity {
 
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         mTextView = (TextView) findViewById(R.id.textView);
+
 
         mBarcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE).build();
@@ -85,7 +104,17 @@ public class CameraActivity extends AppCompatActivity {
                     mTextView.post(new Runnable() {
                         @Override
                         public void run() {
-                            mTextView.setText(data.valueAt(0).displayValue);
+                            String latLong = data.valueAt(0).displayValue;
+                            mTextView.setText("You can move the camera away now, Loading map at (" + latitude + ", " + longitude + "), Please wait...\n\nNOTE: You can swipe on the map to see your location");
+//                            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+//                            vibrator.vibrate(1000);
+                            String[] myArr = latLong.split(",");
+                            latitude = myArr[0];
+                            longitude = myArr[1];
+                            Intent intent = new Intent(CameraActivity.this, MapActivity.class);
+                            intent.putExtra("lat",Double.parseDouble(latitude));
+                            intent.putExtra("long", Double.parseDouble(longitude));
+                            startActivity(intent);
                         }
                     });
                 }
@@ -112,5 +141,6 @@ public class CameraActivity extends AppCompatActivity {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
 
 }

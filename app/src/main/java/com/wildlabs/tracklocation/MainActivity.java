@@ -113,14 +113,11 @@ public class MainActivity extends AppCompatActivity {
         QRGEncoder qrgEncoder = new QRGEncoder(mLocation,null, QRGContents.Type.TEXT, 32);
         try {
             // Getting QR-Code as Bitmap
-            System.out.println("s1");
 
             bitmap = qrgEncoder.encodeAsBitmap();
-            System.out.println("s2");
 
             // Setting Bitmap to ImageView
             qrImage.setImageBitmap(bitmap);
-            System.out.println("s3");
 
         } catch (WriterException e) {
             e.printStackTrace();
