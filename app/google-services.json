@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "56443909791",
+    "firebase_url": "https://tracklocation-8b805.firebaseio.com",
+    "project_id": "tracklocation-8b805",
+    "storage_bucket": "tracklocation-8b805.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56443909791:android:dce066ee525991cb",
+        "android_client_info": {
+          "package_name": "com.wildlabs.tracklocation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56443909791-tqi5dms5n1d1bj6gfau5pjo3uf9nms38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wildlabs.tracklocation",
+            "certificate_hash": "cec4e60cc2f7281694113d96c9c39bbb74c97098"
+          }
+        },
+        {
+          "client_id": "56443909791-svej4le776g24u116sn94u51mdhu0nj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM3CLzduDrrcGS-Jjns3VC7C_FIzS8kUA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56443909791-svej4le776g24u116sn94u51mdhu0nj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

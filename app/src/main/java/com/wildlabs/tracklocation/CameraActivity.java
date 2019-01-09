@@ -15,6 +15,9 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+//import com.google.firebase.database.ChildEventListener;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.qrcode.encoder.QRCode;
 
 import java.io.IOException;
@@ -25,6 +28,10 @@ public class CameraActivity extends AppCompatActivity {
     TextView mTextView;
     CameraSource mCameraSource;
     BarcodeDetector mBarcodeDetector;
+    SurfaceHolder mHolder;
+//    private FirebaseDatabase mFirebaseDatabase;
+//    private DatabaseReference mDatabaseReference;
+//    private ChildEventListener mChildEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,7 @@ public class CameraActivity extends AppCompatActivity {
         mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
+                mHolder = holder;
                 if (ActivityCompat.checkSelfPermission(CameraActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.CAMERA},122);
                     return;
@@ -99,7 +107,7 @@ public class CameraActivity extends AppCompatActivity {
         switch (requestCode){
             case 122:
                 if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
+                    startCamera(mHolder);
                 }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

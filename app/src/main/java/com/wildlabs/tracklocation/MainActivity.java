@@ -19,6 +19,9 @@ import android.widget.ImageView;
 //import com.google.android.gms.location.FusedLocationProviderClient;
 //import com.google.android.gms.location.LocationServices;
 //import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     Bitmap bitmap;
     ImageView qrImage;
     //    private FusedLocationProviderClient mFusedLocationClient;
+//    private FirebaseDatabase mFirebaseDatabase;
+//    private DatabaseReference mDatabaseReference;
     String mLocation;
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
@@ -42,20 +47,26 @@ public class MainActivity extends AppCompatActivity {
 
         mTrackLocation = (Button) findViewById(R.id.trackLocation);
         mGetQR = (Button) findViewById(R.id.generateQR);
-
-        System.out.println("Thos worked 1------------");
-
+        qrImage = (ImageView) findViewById(R.id.qrImage);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        System.out.println("Thos worked 2------------");
+//        mFirebaseDatabase = FirebaseDatabase.getInstance();
+//        mDatabaseReference = mFirebaseDatabase.getReference("location");
+
+        mGetQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qrImage.setVisibility(View.VISIBLE);
+            }
+        });
 
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                System.out.println("Thos worked 3------------");
                 double lat = location.getLatitude();
                 double longitude = location.getLongitude();
                 mLocation = lat + ", " + longitude;
+//                mDatabaseReference.push().setValue(mLocation);
                 generateQRCode();
             }
 
@@ -99,14 +110,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void generateQRCode(){
-        System.out.println("Reached the generator");
-        qrImage = (ImageView) findViewById(R.id.qrImage);
         QRGEncoder qrgEncoder = new QRGEncoder(mLocation,null, QRGContents.Type.TEXT, 32);
         try {
             // Getting QR-Code as Bitmap
+            System.out.println("s1");
+
             bitmap = qrgEncoder.encodeAsBitmap();
+            System.out.println("s2");
+
             // Setting Bitmap to ImageView
             qrImage.setImageBitmap(bitmap);
+            System.out.println("s3");
+
         } catch (WriterException e) {
             e.printStackTrace();
         }
